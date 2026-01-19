@@ -4,7 +4,7 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        // load images / tile sprites
+        // load images/tile sprites
         this.load.image('rocket', './assets/rocket.png')
         this.load.image('spaceship1', './assets/spaceship1.png')
         this.load.image('spaceship2', './assets/spaceship2.png')
