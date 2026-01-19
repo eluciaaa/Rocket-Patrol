@@ -69,7 +69,7 @@ class Play extends Phaser.Scene {
         }, null, this)
     }
 
-    update(time, delta) {
+    update() {
         // check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.sound.play('sfx-select')
@@ -81,12 +81,12 @@ class Play extends Phaser.Scene {
         }
 
 
-        this.starfield.tilePositionX -= 200 * (delta/1000)
+        this.starfield.tilePositionX -= 4
         if(!this.gameOver) {
-            this.p1Rocket.update(delta)
-            this.ship01.update(delta) // update spaceships (x3)
-            this.ship02.update(delta)
-            this.ship03.update(delta)
+            this.p1Rocket.update()
+            this.ship01.update() // update spaceships (x3)
+            this.ship02.update()
+            this.ship03.update()
         }
 
         // check collisions
