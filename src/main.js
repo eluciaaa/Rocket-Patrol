@@ -5,7 +5,7 @@ let config = {
     scene: [ Menu, Play ]
 }
 
-let game = new Phaser.Game(config)
+let game = new Phaser.Game(config);
 
 // set UI sizes
 let borderUISize = game.config.height / 15
