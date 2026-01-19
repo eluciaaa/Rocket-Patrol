@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
     create() {
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 
-        0xffc3f8).setOrigin(0, 0).setDepth(1)
+        0xffc3f8).setOrigin(0, 0.5).setDepth(1)
 
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 
@@ -22,7 +22,7 @@ class Play extends Phaser.Scene {
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0).setDepth(0)
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, -4)
 
         // add spaceships (x3)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, 
@@ -55,16 +55,16 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + 
-        borderPadding * 2, this.p1Score, scoreConfig).setDepth(2)
+        borderPadding * 2, this.p1Score, scoreConfig).setOrigin(0, 0.75).setDepth(2)
         
         // GAME OVER flag
         this.gameOver = false
 
-        // 60 second play clock
+        // play clock
         scoreConfig.fixedWidth = 0
-        this.clock = this.time.delayedCall(60000, () => {
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5)
-            this.add.text(game.config.width / 2, game.config.height / 2 + 64, 'Press (R) to Restart', scoreConfig).setOrigin(0.5)
+            this.add.text(game.config.width / 2, game.config.height / 2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true
         }, null, this)
     }
@@ -72,8 +72,14 @@ class Play extends Phaser.Scene {
     update() {
         // check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
+            this.sound.play('sfx-select')
             this.scene.restart()
         }
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.sound.play('sfx-select')
+            this.scene.start("menuScene")
+        }
+
 
         this.starfield.tilePositionX -= 4
         if(!this.gameOver) {

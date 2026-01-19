@@ -10,6 +10,7 @@ class Menu extends Phaser.Scene {
         this.load.image('spaceship2', './assets/spaceship2.png')
         this.load.image('spaceship3', './assets/spaceship3.png')
         this.load.image('starfield', './assets/starfield.png')
+        this.load.image('menubackground', './assets/menubackground.png')
 
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
@@ -49,6 +50,9 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+
+        // place tile sprite
+        this.menubackground = this.add.tileSprite(0, 0, 640, 480, 'menubackground').setOrigin(0, 0).setDepth(0)
 
         // display menu text
         this.add.text(game.config.width / 2, game.config.height / 2 - borderUISize - borderPadding, 'ROCKET PATROL',
